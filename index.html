@@ -14,6 +14,7 @@
                 {
                     title: "Start",
                     coordinate: new mapkit.Coordinate(54.793250, 9.439015),
+                    selected: true,
                 },
                 {
                     title: "Wegpunkt",
@@ -138,6 +139,7 @@
                 var annotation = new mapkit.MarkerAnnotation(marker.coordinate, {
                     title: marker.title,
                     subtitle: marker.subtitle ? marker.subtitle : '',
+                    selected: marker.selected ? marker.selected : false,
                     data: marker.data ? marker.data : {},
                     callout: {
                         calloutShouldAppearForAnnotation: function(annotation) {
