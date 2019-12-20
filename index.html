@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/jgthms/minireset.css/master/minireset.min.css">
+        <title>Grünes Hufeisen Flensburg</title>
+    </head>
+    <body>
+        <div id="map" class="map" style="width:100%;height:100vh"></div>
+        <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+        <script type="text/javascript">
+            var markers = [
+                {
+                    title: "Start",
+                    coordinate: new mapkit.Coordinate(54.793250, 9.439015),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.792524, 9.440382),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.792258, 9.441939),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.792935, 9.445737),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.792678, 9.454355),
+                },
+                {
+                    title: "Kurze Pause",
+                    coordinate: new mapkit.Coordinate(54.792293, 9.455364),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.791524, 9.459315),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.792729, 9.460291),
+                    data: {
+                        text: 'Hier müsst ihr über den Zaun klettern.'
+                    }
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.793100, 9.462048),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.794370, 9.463947),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.795271, 9.465336),
+                    data: {
+                        text: 'Hier kann man durch eine Hecke und dann über ein Feld, aber das lohnt sich nicht, weil das Feld oft nicht gemäht wird.'
+                    }
+                },
+                {
+                    title: "Auf nach Engelsby Dorf",
+                    coordinate: new mapkit.Coordinate(54.795366, 9.467620),
+                },
+                {
+                    title: "Links Abbiegen",
+                    coordinate: new mapkit.Coordinate(54.796467, 9.469948),
+                },
+                {
+                    title: "Geradeaus",
+                    coordinate: new mapkit.Coordinate(54.800842, 9.468804),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.805489, 9.466266),
+                    glyphText: '⚠️',
+                    data: {
+                        text: 'Hier musst du wieder über ein Zaun und über eine große Wiese.<br>Nimm dir einen Augenblick und genieß den Ausblick.'
+                    }
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.806723, 9.468833),
+                    data: {
+                        text: 'Wenn du es durch das Dickicht geschafft hast, musst du über die Straße und der Osbek Straße folgen.'
+                    }
+                },
+                {
+                    title: "In die Kleingartenkolonie",
+                    coordinate: new mapkit.Coordinate(54.807470, 9.470424),
+                },
+                {
+                    title: "Streuobstwiese",
+                    coordinate: new mapkit.Coordinate(54.808807, 9.470268),
+                    glyphText: '🍎',
+                    data: {
+                        text: 'Auf der Streuobstwiese finden sich viele verschieden Obstbäume, vorwiegend Äpfel. Nimm dir ein paar für den restlichen Weg mit.'
+                    }
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.810653, 9.464887),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.809948, 9.464019),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.811039, 9.461415),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.812891, 9.456253),
+                },
+                {
+                    title: "Wegpunkt",
+                    coordinate: new mapkit.Coordinate(54.812435, 9.455306),
+                    data: {
+                        text: 'Noch ein kleiner Spaziergang an der Promenade entlang und ihr habt es geschafft.'
+                    }
+                },
+                {
+                    title: "Ziel",
+                    coordinate: new mapkit.Coordinate(54.808638, 9.454222),
+                    glyphText: '🏁',
+                    data: {
+                        text: 'Hier endet euer kleines Abenteuer. Von hier könnt ihr zurück zum Startpunkt.<br>Hoffentlich hat euch der Ausflug Freude bereitet und ihr habt neue Ecke von Flensburg kennengelernt.',
+                        // bike: true,
+                    }
+                },
+            ];
+
+            var addMarkerToMap = function(marker, map) {
+                var annotation = new mapkit.MarkerAnnotation(marker.coordinate, {
+                    title: marker.title,
+                    subtitle: marker.subtitle ? marker.subtitle : '',
+                    data: marker.data ? marker.data : {},
+                    callout: {
+                        calloutShouldAppearForAnnotation: function(annotation) {
+                            if(annotation.data.text) {
+                                return true;
+                            }
+
+                            return false;
+                        },
+                        calloutContentForAnnotation: function(annotation) {
+                            var element = document.createElement('div');
+                            element.className = 'review-callout-content';
+
+                            var title = element.appendChild(document.createElement('h1'));
+                            title.textContent = annotation.title;
+
+                            if(annotation.subtitle) {
+                                var subtitle = element.appendChild(document.createElement('h3'));
+                                subtitle.textContent = annotation.subtitle;
+                            }
+
+                            var content = element.appendChild(document.createElement('p'));
+                            content.style.maxWidth = '400px';
+                            content.style.padding = '20px';
+                            content.innerHTML = annotation.data.text;
+
+                            return element;
+                        }
+                    }
+                });
+
+                if(marker.glyphText) {
+                    annotation.glyphText = marker.glyphText;
+
+                    if(annotation.data.bike === true) {
+                        annotation.glyphText = '🚲';
+                        annotation.color = 'blue';
+                    }
+                }
+
+                map.addAnnotation(annotation);
+            };
+
+            window.addEventListener('load', function() {
+                mapkit.init({
+                    authorizationCallback: function(done) {
+                        // var sJWT = KJUR.jws.JWS.sign(
+                        //     'ES256',
+                        //     {
+                        //         alg: 'ES256',
+                        //         typ: 'JWT',
+                        //         kid: '2X5L982G39'
+                        //     },
+                        //     {
+                        //         iat: Date.now(),
+                        //         exp: (Date.now() + 60*60*24),
+                        //         iss: 'MX5J77WYN6',
+                        //     }
+                        // );
+                        // 
+                        // fetch('https://jwt.io/gettoken')
+                        //     .then(res => res.text())
+                        //     .then(done);
+
+                        done('eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjJYNUw5ODJHMzkifQ.eyJpc3MiOiJNWDVKNzdXWU42IiwiaWF0IjoxNTc2Njg3MzEyLCJleHAiOjE1NzkzNjU3MTJ9.5vBqMoAWu7HT5buDBOCfwEP1ZqMBGhoMogXoNceC4Zt2Hwls7C4TGdI99RG4AFmqUotwBkKrFUnSORE1JY_tAA');
+                    },
+                    language: "de"
+                });
+
+                var center = new mapkit.Coordinate(54.7937431, 9.4469964),
+                  span = new mapkit.CoordinateSpan(0.0125, 0.00125),
+                  region = new mapkit.CoordinateRegion(center, span);
+
+                var map = new mapkit.Map("map", {
+                  mapType: mapkit.Map.MapTypes.Hybrid,
+                  region: region,
+                  showsCompass: mapkit.FeatureVisibility.Hidden,
+                  showsZoomControl: mapkit.FeatureVisibility.Visible,
+                  showsMapTypeControl: mapkit.FeatureVisibility.Visible
+                });
+
+                for (var i = markers.length - 1; i >= 0; i--) {
+                    addMarkerToMap(markers[i], map);
+                };
+            });
+        </script>
+    </body>
+</html>
