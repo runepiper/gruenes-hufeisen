@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  application:
+    container_name: hufeisen_application
+    build:
+      context: .
+      dockerfile: ./docker/application/Dockerfile
+    networks:
+      - web
+    extra_hosts:
+      - 'hufeisen.localhost:127.0.0.1'
+      - 'hufeisen.localhost.visuellverstehen.de:127.0.0.1'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hufeisen.rule=Host(`hufeisen.localhost`,`hufeisen.localhost.visuellverstehen.de`)"
+      - "traefik.http.routers.hufeisen.entrypoints=web"
+      - "traefik.http.services.hufeisen.loadbalancer.server.port=80"
+      - "traefik.docker.network=web"
+    working_dir: /var/www/html
+    tty: true
+    volumes:
+      - ./docker/application/php.ini:/usr/local/etc/php/php.ini:cached
+      - ./:/var/www/html
+    restart: always
+
+  tooling:
+    container_name: hufeisen_tooling
+    build:
+      context: .
+      dockerfile: ./docker/tooling/Dockerfile
+    networks:
+      - web
+    tty: true
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    restart: always
+
+networks:
+  web:
+    external: true
