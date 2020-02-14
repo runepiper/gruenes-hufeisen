@@ -9,3 +9,4 @@ It's a small interactive map (built with Maps) that provides a route with use
 - [ ] Small info page
 - [ ] ServiceWorker for offline access
 - [ ] Some advertising or sponsoring to pay itself
+- [x] Proper JWT handling

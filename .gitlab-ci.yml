@@ -9,8 +9,12 @@ deploy:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - 'which rsync || ( apt-get update -y && apt-get install rsync -y)'
+  before_script:
+    - composer install --no-interaction
   script:
     - >
       rsync -av -e "ssh"
-      index.html
+      public
+      vendor
+      composer.json
       p201628@p201628.mittwald.info:/html/hufeisen/

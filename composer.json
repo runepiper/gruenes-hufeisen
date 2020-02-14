@@ -1,0 +1,11 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/firebase/php-jwt"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "dev-master"
+    }
+}

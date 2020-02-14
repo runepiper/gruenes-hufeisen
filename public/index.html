@@ -96,7 +96,7 @@
                 {
                     title: "Streuobstwiese",
                     coordinate: new mapkit.Coordinate(54.808807, 9.470268),
-                    glyphText: '🍎',
+                    glyphText: '🍏',
                     data: {
                         text: 'Auf der Streuobstwiese finden sich viele verschieden Obstbäume, vorwiegend Äpfel. Nimm dir ein paar für den restlichen Weg mit.'
                     }
@@ -186,25 +186,9 @@
             window.addEventListener('load', function() {
                 mapkit.init({
                     authorizationCallback: function(done) {
-                        // var sJWT = KJUR.jws.JWS.sign(
-                        //     'ES256',
-                        //     {
-                        //         alg: 'ES256',
-                        //         typ: 'JWT',
-                        //         kid: '2X5L982G39'
-                        //     },
-                        //     {
-                        //         iat: Date.now(),
-                        //         exp: (Date.now() + 60*60*24),
-                        //         iss: 'MX5J77WYN6',
-                        //     }
-                        // );
-                        // 
-                        // fetch('https://jwt.io/gettoken')
-                        //     .then(res => res.text())
-                        //     .then(done);
-
-                        done('eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjJYNUw5ODJHMzkifQ.eyJpc3MiOiJNWDVKNzdXWU42IiwiaWF0IjoxNTc2Njg3MzEyLCJleHAiOjE1NzkzNjU3MTJ9.5vBqMoAWu7HT5buDBOCfwEP1ZqMBGhoMogXoNceC4Zt2Hwls7C4TGdI99RG4AFmqUotwBkKrFUnSORE1JY_tAA');
+                        fetch('/gettoken.php')
+                            .then(res => res.text())
+                            .then(done);
                     },
                     language: "de"
                 });
