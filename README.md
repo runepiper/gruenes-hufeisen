@@ -1,12 +1,3 @@
 # Grünes Hufeisen
 
-It's a small interactive map (built with Maps) that provides a route with useful information about the trailway.
-
-[Live](https://www.gruenes-hufeisen.de)
-
-## Upcoming features
-
-- [ ] Small info page
-- [ ] ServiceWorker for offline access
-- [ ] Some advertising or sponsoring to pay itself
-- [x] Proper JWT handling
+_Grünes Hufeisen_ was a small interactive map built with Maps that provided a route with useful information about the said trailway. At some point I replaced the map I built for learning purpose with a guide you can find on [www.runepiper.de](https://www.runepiper.de).
